@@ -1,44 +1,29 @@
 plugins {
-    id("java")
-    id("org.flywaydb.flyway") version "11.3.3"
+    id("org.springframework.boot") version "3.1.0"
+    id("io.spring.dependency-management") version "1.1.0"
+    kotlin("jvm") version "1.8.10"
+    kotlin("plugin.spring") version "1.8.10"
 }
 
-group = "com.ing"
-version = "1.0-SNAPSHOT"
+group = "com.ing.grid"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
 }
 
-val flywayVersion = "11.3.3"
-val lombokVersion = "1.18.20"
-
 dependencies {
-    implementation("org.flywaydb:flyway-core:$flywayVersion")
-    implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation ("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    implementation("com.h2database:h2:2.1.214")
-    compileOnly ("org.projectlombok:lombok:$lombokVersion")
-    annotationProcessor ("org.projectlombok:lombok:$lombokVersion")
-    runtimeOnly ("com.h2database:h2")
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.h2database:h2")
+    implementation("org.springframework.boot:spring-boot-starter-hateoas")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0")
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-repositories{
-    mavenCentral()
-}
-
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-flyway {
-    url="jdbc:h2:mem:testdb"
-    user = "root"
-    password="toor"
-    schemas = arrayOf("test")
-    locations = arrayOf("filesystem:src/main/resources/db/migration")
 }

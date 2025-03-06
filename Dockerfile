@@ -1,9 +1,11 @@
 # Use image base with java and gradle
 FROM gradle:8.5.0-jdk17 AS build
 
-#Copy project files to container
 COPY --chown=gradle:gradle . /home/gradle/src
+
 WORKDIR /home/gradle/src
+
+RUN gradle build --no-daemon
 
 #Execute migrations
 #RUN gradle flywayMigrate --no-daemon
