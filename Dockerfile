@@ -14,7 +14,7 @@ RUN gradle build --no-daemon
 FROM openjdk:17-jdk
 
 #COPY build artifact to app image
-COPY --from=build /home/gradle/src/build/libs/demo.jar /app/demo.jar
+COPY --from=build /home/gradle/src/build/libs/GridBackEndPoC-0.0.1-SNAPSHOT.jar /app/demo.jar
 
 #Define command to run app
 ENTRYPOINT ["java", "-jar", "/app/demo.jar"]
