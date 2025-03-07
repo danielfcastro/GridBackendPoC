@@ -8,7 +8,7 @@ WORKDIR /home/gradle/src
 RUN gradle build --no-daemon
 
 #Execute migrations
-#RUN gradle flywayMigrate --no-daemon
+RUN gradle flywayMigrate --no-daemon
 
 # Use image base
 FROM openjdk:17-jdk

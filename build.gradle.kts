@@ -1,6 +1,7 @@
 plugins {
     id("org.springframework.boot") version "3.1.0"
     id("io.spring.dependency-management") version "1.1.0"
+    id("org.flywaydb.flyway") version "9.16.3"
     kotlin("jvm") version "1.8.10"
     kotlin("plugin.spring") version "1.8.10"
 }
@@ -26,4 +27,11 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+flyway {
+    url = "jdbc:h2:mem:testdb"
+    user = "sa"
+    password = "password"
+    locations = arrayOf("filesystem:src/main/java/resources/db/migration")
 }
